@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="Shopping Planner"/>
+    <meta property="og:description" content="A responsive website site that pulls data from a third party API, https://OpenWeatherMap.com and https://Google.com, to present search results in a useful way." />
+    <title>Throw it in the Bag!</title>
+    <link href="styles.css" rel="stylesheet"/>
+</head>
+
+<body>
+  <main role=main>
+    <section class="start-display" id="start-page">
+      <header class="row" role="banner">
+        <h1 class="logo">Throw it in the Bag!</h1>
+          <p>Pin Point Your Next Shopping Excursion!</p>
+      </header>
+
+        <form action="#" class="search-form row" id="search-query-form">
+                <input type="text" placeholder="Enter Location" class="search-query" id="search-term" required>
+                <button type="submit" class="submit-button">Let's Shop!</button>
+            </form>
+    </section>
+      
+      <section class="weather row" id="weather-display">
+      </section>
+      
+      <section id="map"></section>
+
+        <footer class="footer">
+            <p class="api-info">Powered by Google Maps and OpenWeatherMap</p>
+        </footer>
+    </main>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB8jz353KbMR6lRkCWCfpFBgHrlPQXUK8" async defer></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js">
+    </script>
+    <script type="text/javascript" src="app.js"></script>
+</body>
+</html>
