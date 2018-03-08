@@ -1,4 +1,108 @@
-#map {
-        height: 500px;
-        width: 100%;
-       }
+body {
+  width: 100%;
+}
+
+.maincontent, .nextcontent {
+  padding-top: 40px;
+  display: none;
+}
+
+.mainlink, .nextlink {
+  font-family: 'Yesteryear', cursive;
+  color: #fff;
+  border: 3px solid #fff;
+  padding: 15px 10px;
+  display: block;
+  text-align: center;
+  margin: 25px auto;
+  width: 13%;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.mainlink:hover, .nextlink:hover{
+  background: #fff;
+  color: #575757;
+} 
+
+
+h1 {
+  font-family: 'Yesteryear', cursive;
+  font-weight: bold;
+  text-align: center;
+  font-size: 60px;
+  color: #fff;
+  margin-top: 10px;
+}
+
+h2 {
+  font-family: 'Yesteryear', cursive;
+  text-align: center;
+  font-size: 25px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 200;
+
+}
+
+#search-term {
+  margin: 0 auto;
+  display: block;
+  
+}
+
+
+/* PAGES
+-------------------------------------------------*/
+#main-page {
+  height: 25px;
+  width: 375px;
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  margin: auto;
+  background-image: url("https://images.unsplash.com/photo-1485570661444-73b3f0ff9d2f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=4550661e949789d265b9df2662108c93&auto=format&fit=crop&w=1663&q=80");
+  display: none;
+}
+
+#next-page {
+  height: 25px;
+  width: 375px;
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  margin: auto;
+  background-image: url("https://images.unsplash.com/photo-1464490826362-59825a4f51df?ixlib=rb-0.3.5&s=f99d4c3064eec3f7de069b0948498c6d&auto=format&fit=crop&w=1651&q=80");
+  display: none;
+}
+
+
+#weather-display {
+  text-align: center;
+  background-color: gold;
+  font-size:15px; 
+  color: #fff;
+  float: left;
+  border: 3px solid #fff;
+  width: 25%;
+  padding: 175px 100px;
+}
+
+#map-display {
+  text-align: center;
+  background-color: gold;
+  font-size:15px; 
+  color: #fff;
+  float: right;
+  border: 3px solid #fff;
+  width: 25%;
+  padding: 175px 100px;
+  
+}
+
+
+
+
+
+
+
