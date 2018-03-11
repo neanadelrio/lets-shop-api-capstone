@@ -1,9 +1,8 @@
  const WEATHER_SEARCH_URL = "https://api.openweathermap.org/data/2.5/weather?id=524901&APPID=5b6db5278fb609ae944e0bd7f3f21c02";
 
-// const GEOLOCATION_API = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAB8jz353KbMR6lRkCWCfpFBgHrlPQXUK8';
+const GEOLOCATION_API = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAB8jz353KbMR6lRkCWCfpFBgHrlPQXUK8';
 
-"use strict";
- 
+
 
 /* JQUERY CODES
 -------------------------------------------------*/
@@ -30,6 +29,7 @@ $(document).ready(function() {
     $(".maincontent").fadeIn();
     
     $(".mainlink").on("click", function() {
+        getWeatherData();
         $(".maincontent").fadeOut();
         $("#main-page").animate({
             width: "25px",
@@ -97,7 +97,7 @@ $(document).ready(function() {
 
 //retrieve data from OpenWeather API
 function getWeatherData() {
-  let city = $('.search-query').val();
+  let city = $('.controls').val();
   $.ajax(WEATHER_SEARCH_URL, {
   data: {
   units: 'imperial',
@@ -108,7 +108,6 @@ function getWeatherData() {
     success: function (data) {
     let widget = displayWeather(data);
     $('#weather-display').html(widget);
-    scrollPageTo('#weather-display', 15);
     }
   });
 }
@@ -131,7 +130,7 @@ function enterLocation() {
         $('button').removeClass("selected");
         $(this).addClass("selected");
     });
-
+    
     $('.search-form').submit(function (event) {
         event.preventDefault();
         $('.navigation').removeClass("hide");
@@ -142,4 +141,62 @@ function enterLocation() {
 }
 
 
-$(enterLocation);
+
+var map;
+var infowindow; 
+
+  function initMap() {
+    var atlanta = {lat: 33.753746, lng: -84.386330};
+      
+      map = new google.maps.Map(document.getElementById('map-display'), {
+          center: atlanta,
+          zoom: 15,
+      });
+      
+      var input = document.getElementById('pac-input');
+      var searchBox = new google.maps.places.SearchBox(input);
+      
+    infowindow = new google.maps.InfoWindow();
+      var service = new google.maps.places.PlacesService(map);
+      service.nearbySearch({
+        location: atlanta,
+        radius: 500,
+        type: ['clothing_store']
+        }, callback);
+      }
+
+  function callback(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        createMarker(results[i]);
+        }
+      }
+  }     
+
+  function createMarker(place) {
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+    });
+
+      google.maps.event.addListener(marker, 'click', function() {
+      infowindow.setContent(place.name);
+      infowindow.open(map, this);
+      });
+    }
+
+
+function activatePlacesSearch() {
+    let options = {
+        types: ['(regions)']
+    };
+    let input = document.getElementById('pac-input');
+    let autocomplete = new google.maps.places.Autocomplete(input, options);
+}
+
+enterLocation();
+
+
+    
+

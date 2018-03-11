@@ -47,9 +47,13 @@ h2 {
 
 }
 
-#search-term {
+#pac-input {
   margin: 0 auto;
   display: block;
+  font-family: 'Yesteryear', cursive;
+  width: 250px;
+  font-size: 20px;
+  text-align: center;
   
 }
 
@@ -79,25 +83,21 @@ h2 {
 
 #weather-display {
   text-align: center;
-  background-color: gold;
+  background-color: goldenrod;
   font-size:15px; 
   color: #fff;
-  float: left;
   border: 3px solid #fff;
-  width: 25%;
-  padding: 175px 100px;
+  width: 100%;
 }
 
 #map-display {
   text-align: center;
   background-color: gold;
   font-size:15px; 
-  color: #fff;
-  float: right;
+  color: gold;
   border: 3px solid #fff;
-  width: 25%;
-  padding: 175px 100px;
-  
+  height: 50%;
+  margin: 0; 
 }
 
 

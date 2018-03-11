@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>repl.it</title>
-    <link href="index.css" rel="stylesheet" type="text/css" />
+    <title>Shoppalooza</title>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Yesteryear" rel="stylesheet">
   </head>
 <body>
@@ -15,7 +15,7 @@
       <h1>Shoppalooza</h1>
       <h2>Pin point your next shopping excursion......</h2>
       <form action="#" class="search-form row" id="search-query-form">
-  <input type="text" placeholder="Enter Location" class="search-query" id="search-term" required>
+  <input type="text" placeholder="Enter Location" class="controls" id="pac-input" required/>
   <a class="mainlink">Let's Shop! &rarr;</a>
       </form>
     </div>
@@ -28,17 +28,11 @@
   <a class="nextlink"> &larr; GO BACK</a>
 <!--show weather/map section-->
     <div class="weather-row" id="weather-display">
-    <h3>Weather</h3>
     </div>
     <div class="map-row" id="map-display">
-    <h3>Map</h3>
     </div>
 </div>
-<!--
-     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB8jz353KbMR6lRkCWCfpFBgHrlPQXUK8" async defer></script>
- 
--->
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB8jz353KbMR6lRkCWCfpFBgHrlPQXUK8&libraries=places&callback=initMap" async defer></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="app.js"></script>
   </body>
