@@ -1,10 +1,13 @@
- const WEATHER_SEARCH_URL = "https://api.openweathermap.org/data/2.5/weather?id=524901&APPID=5b6db5278fb609ae944e0bd7f3f21c02";
+
+const WEATHER_SEARCH_URL = "https://api.openweathermap.org/data/2.5/weather?id=524901&APPID=5b6db5278fb609ae944e0bd7f3f21c02";
 
 const GEOLOCATION_API = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAB8jz353KbMR6lRkCWCfpFBgHrlPQXUK8';
 
+const FOURSQUARE_SEARCH_URL = "https://api.foursquare.com/v2/venues/explore?&client_id=CLMUPDJ5DLZDTIAWOLLWVXZ0HNJP3QHZP0I5GUB3EWRF532E&client_secret=SIWUEB2DSLSJ3S0ZAXUWC2S0F2TCUJNBXKERUQT2O2AYYQ32&v=20170915"
 
 
-/* JQUERY CODES
+
+/* JQUERY CODES FOR ANIMATION
 -------------------------------------------------*/
 
 $(document).ready(function() {
@@ -95,9 +98,20 @@ $(document).ready(function() {
     
 });
 
+//END OF ANIMATION
+
+function scrollPageTo(myTarget, topPadding) {
+    if (topPadding == undefined) {
+        topPadding = 0;
+    }
+    var moveTo = $(myTarget).offset().top - topPadding;
+    $('html, body').stop().animate({
+        scrollTop: moveTo
+    }, 200);
+}
+
 //retrieve data from OpenWeather API
-function getWeatherData() {
-  let city = $('.controls').val();
+function getWeatherData(city) {
   $.ajax(WEATHER_SEARCH_URL, {
   data: {
   units: 'imperial',
@@ -125,21 +139,75 @@ function displayWeather(data) {
 `;
 }
 
+//END OF WEATHER INPUT
+
+//Get Foursquare info
+
+function getDataFoursquare(city) {
+    $.ajax(FOURSQUARE_SEARCH_URL, {
+            data: {
+                near: city,
+                venuePhotos: 1,
+                limit: 9,
+                query: 'malls',
+                section: "Malls",
+            },
+            dataType: 'json',
+            type: 'GET',
+            success: function (data) {
+                console.log(data);
+                try {
+                    let results = data.response.groups[0].items.map(function (item, index) {
+//                        console.log(item);
+                        return displayResults(item);
+                    });
+                    $('#foursquare-results').html(results);
+                    scrollPageTo('#foursquare-results', 15);
+                } catch (e) {
+                    $('#foursquare-results').html("<div class='result'><p>Whoopsie! No Results Found.</p></div>");
+                }
+            },
+            error: function () {
+                $('#foursquare-results').html("<div class='result'><p>Whoopsie! Lets try that again.</p></div>");
+            }
+        });
+}
+      
+
 function enterLocation() {
     $(".mainlink").click(function () {
         $('button').removeClass("selected");
-        $(this).addClass("selected");
-    });
-    
-    $('.search-form').submit(function (event) {
         event.preventDefault();
         $('.navigation').removeClass("hide");
         $('#weather-display').html("");
-        getWeatherData();
+        let city = $('.controls').val();
+        getDataFoursquare(city);
+        getWeatherData(city);
         $('button').removeClass("selected");
+        $(this).addClass("selected");
     });
 }
 
+function displayResults(result) {
+    return `
+        <div class="result col-3">
+            <div class="result-image" style="background-image: url(https://igx.4sqi.net/img/general/width960${result.venue.photos.groups[0].items[0].suffix})" ;>
+            </div>
+            <div class="result-description">
+                <h2 class="result-name"><a href="${result.venue.url}" target="_blank">${result.venue.name}</a></h2>
+                <span class="icon">
+                    <img src="${result.venue.categories[0].icon.prefix}bg_32${result.venue.categories[0].icon.suffix}" alt="category-icon">
+                </span>
+                <span class="icon-text">
+                    ${result.venue.categories[0].name}
+                </span>
+                <p class="result-address">${result.venue.location.formattedAddress[0]}</p>
+                <p class="result-address">${result.venue.location.formattedAddress[1]}</p>
+                <p class="result-address">${result.venue.location.formattedAddress[2]}</p>
+            </div>
+        </div>
+`;
+}
 
 
 var map;
@@ -148,14 +216,14 @@ var infowindow;
   function initMap() {
     var atlanta = {lat: 33.753746, lng: -84.386330};
       
-      map = new google.maps.Map(document.getElementById('map-display'), {
+      map = new google.maps.Map(document.getElementById('map-input'), {
           center: atlanta,
           zoom: 15,
       });
       
       var input = document.getElementById('pac-input');
       var searchBox = new google.maps.places.SearchBox(input);
-      
+
     infowindow = new google.maps.InfoWindow();
       var service = new google.maps.places.PlacesService(map);
       service.nearbySearch({
@@ -171,7 +239,9 @@ var infowindow;
         createMarker(results[i]);
         }
       }
-  }     
+  }
+
+
 
   function createMarker(place) {
     var placeLoc = place.geometry.location;
@@ -193,7 +263,10 @@ function activatePlacesSearch() {
     };
     let input = document.getElementById('pac-input');
     let autocomplete = new google.maps.places.Autocomplete(input, options);
+    
 }
+
+
 
 enterLocation();
 

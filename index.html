@@ -15,8 +15,8 @@
       <h1>Shoppalooza</h1>
       <h2>Pin point your next shopping excursion......</h2>
       <form action="#" class="search-form row" id="search-query-form">
-  <input type="text" placeholder="Enter Location" class="controls" id="pac-input" required/>
-  <a class="mainlink">Let's Shop! &rarr;</a>
+        <input type="text" required placeholder="Enter Location" class="controls" id="pac-input">
+        <a class="mainlink">Let's Shop! &rarr;</a>
       </form>
     </div>
   </div>
@@ -29,12 +29,14 @@
 <!--show weather/map section-->
     <div class="weather-row" id="weather-display">
     </div>
-    <div class="map-row" id="map-display">
+    <div class="row" id="foursquare-results">
+    </div>
+    <div id="map-input">
     </div>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB8jz353KbMR6lRkCWCfpFBgHrlPQXUK8&libraries=places&callback=initMap" async defer></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="app.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB8jz353KbMR6lRkCWCfpFBgHrlPQXUK8&libraries=places&callback=initMap" async defer></script>
   </body>
 </html>
 
