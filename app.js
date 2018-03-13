@@ -100,17 +100,32 @@ $(document).ready(function() {
 
 //END OF ANIMATION
 
-function scrollPageTo(myTarget, topPadding) {
-    if (topPadding == undefined) {
-        topPadding = 0;
-    }
-    var moveTo = $(myTarget).offset().top - topPadding;
-    $('html, body').stop().animate({
-        scrollTop: moveTo
-    }, 200);
+
+//GET USER LOCATION
+
+function enterLocation() {
+    $(".mainlink").click(function () { 
+        event.preventDefault();
+        $('#weather-display').html("");
+        let city = $('.controls').val();
+        getDataFoursquare(city);
+        getWeatherData(city);
+        $(this).addClass("selected");
+    });
 }
 
+function activatePlacesSearch() {
+    let options = {
+        types: ['(cities)']
+    };
+    let input = document.getElementById('pac-input');
+    let autocomplete = new google.maps.places.Autocomplete(input, options);
+    
+}
+
+
 //retrieve data from OpenWeather API
+
 function getWeatherData(city) {
   $.ajax(WEATHER_SEARCH_URL, {
   data: {
@@ -125,6 +140,7 @@ function getWeatherData(city) {
     }
   });
 }
+
 
 function displayWeather(data) {
     return `
@@ -141,6 +157,16 @@ function displayWeather(data) {
 
 //END OF WEATHER INPUT
 
+function scrollPageTo(myTarget, topPadding) {
+    if (topPadding == undefined) {
+        topPadding = 0;
+    }
+    var moveTo = $(myTarget).offset().top - topPadding;
+    $('html, body').stop().animate({
+        scrollTop: moveTo
+    }, 200);
+}
+
 //Get Foursquare info
 
 function getDataFoursquare(city) {
@@ -152,6 +178,15 @@ function getDataFoursquare(city) {
                 query: 'malls',
                 section: "Malls",
             },
+//        if no results then display try to get this query
+//        data: {
+//                near: city,
+//                venuePhotos: 1,
+//                limit: 9,
+//                query: 'shopping',
+//                section: "Malls",
+//            },
+        
             dataType: 'json',
             type: 'GET',
             success: function (data) {
@@ -174,20 +209,6 @@ function getDataFoursquare(city) {
 }
       
 
-function enterLocation() {
-    $(".mainlink").click(function () {
-        $('button').removeClass("selected");
-        event.preventDefault();
-        $('.navigation').removeClass("hide");
-        $('#weather-display').html("");
-        let city = $('.controls').val();
-        getDataFoursquare(city);
-        getWeatherData(city);
-        $('button').removeClass("selected");
-        $(this).addClass("selected");
-    });
-}
-
 function displayResults(result) {
     return `
         <div class="result col-3">
@@ -207,68 +228,16 @@ function displayResults(result) {
             </div>
         </div>
 `;
-}
-
-
-var map;
-var infowindow; 
-
-  function initMap() {
-    var atlanta = {lat: 33.753746, lng: -84.386330};
-      
-      map = new google.maps.Map(document.getElementById('map-input'), {
-          center: atlanta,
-          zoom: 15,
-      });
-      
-      var input = document.getElementById('pac-input');
-      var searchBox = new google.maps.places.SearchBox(input);
-
-    infowindow = new google.maps.InfoWindow();
-      var service = new google.maps.places.PlacesService(map);
-      service.nearbySearch({
-        location: atlanta,
-        radius: 500,
-        type: ['clothing_store']
-        }, callback);
-      }
-
-  function callback(results, status) {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-      for (var i = 0; i < results.length; i++) {
-        createMarker(results[i]);
-        }
-      }
-  }
-
-
-
-  function createMarker(place) {
-    var placeLoc = place.geometry.location;
-    var marker = new google.maps.Marker({
-      map: map,
-      position: place.geometry.location
-    });
-
-      google.maps.event.addListener(marker, 'click', function() {
-      infowindow.setContent(place.name);
-      infowindow.open(map, this);
-      });
-    }
-
-
-function activatePlacesSearch() {
-    let options = {
-        types: ['(regions)']
-    };
-    let input = document.getElementById('pac-input');
-    let autocomplete = new google.maps.places.Autocomplete(input, options);
-    
-}
-
+}      
 
 
 enterLocation();
+//$('#loginForm')[0].reset();
+
+
+
+
+
 
 
     
