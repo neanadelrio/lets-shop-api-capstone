@@ -111,6 +111,7 @@ function enterLocation() {
         getDataFoursquare(city);
         getWeatherData(city);
         $(this).addClass("selected");
+        $('.controls').val("");
     });
 }
 
@@ -127,7 +128,9 @@ function activatePlacesSearch() {
 //retrieve data from OpenWeather API
 
 function getWeatherData(city) {
-  $.ajax(WEATHER_SEARCH_URL, {
+    console.log(city);
+    if (city != undefined) {
+     $.ajax(WEATHER_SEARCH_URL, {
   data: {
   units: 'imperial',
   q: city
@@ -136,9 +139,14 @@ function getWeatherData(city) {
     type: 'GET',
     success: function (data) {
     let widget = displayWeather(data);
+        console.log(data);
     $('#weather-display').html(widget);
     }
-  });
+  });   
+    }
+    else {
+     $('#weather-display').html('No Results Please Try Again');   
+    }
 }
 
 
@@ -177,29 +185,56 @@ function getDataFoursquare(city) {
                 limit: 9,
                 query: 'malls',
                 section: "Malls",
-            },
-//        if no results then display try to get this query
-//        data: {
-//                near: city,
-//                venuePhotos: 1,
-//                limit: 9,
-//                query: 'shopping',
-//                section: "Malls",
-//            },
-        
+            },     
             dataType: 'json',
             type: 'GET',
             success: function (data) {
                 console.log(data);
                 try {
-                    let results = data.response.groups[0].items.map(function (item, index) {
+                    if (data.response.totalResults != 0) {
+                     let results = data.response.groups[0].items.map(function (item, index) {
 //                        console.log(item);
                         return displayResults(item);
                     });
                     $('#foursquare-results').html(results);
-                    scrollPageTo('#foursquare-results', 15);
+                    scrollPageTo('#foursquare-results', 15);   
+                    }
+                 else {
+                   $('#foursquare-results').html("<div class='result'><p>Whoopsie! No Results Found.</p></div>");  
+                 }   
+                } catch (e) {
+                    $.ajax(FOURSQUARE_SEARCH_URL, {
+            data: {
+                near: city,
+                venuePhotos: 1,
+                limit: 9,
+                query: 'shopping',
+                section: "Malls",
+            },     
+            dataType: 'json',
+            type: 'GET',
+            success: function (data) {
+                console.log(data);
+                try {
+                    if (data.response.totalResults != 0) {
+                     let results = data.response.groups[0].items.map(function (item, index) {
+//                        console.log(item);
+                        return displayResults(item);
+                    });
+                    $('#foursquare-results').html(results);
+                    scrollPageTo('#foursquare-results', 15);   
+                    }
+                 else {
+                   $('#foursquare-results').html("<div class='result'><p>Whoopsie! No Results Found.</p></div>");  
+                 }   
                 } catch (e) {
                     $('#foursquare-results').html("<div class='result'><p>Whoopsie! No Results Found.</p></div>");
+                }
+            },
+            error: function () {
+                $('#foursquare-results').html("<div class='result'><p>Whoopsie! Lets try that again.</p></div>");
+            }
+        });
                 }
             },
             error: function () {
