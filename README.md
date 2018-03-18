@@ -6,10 +6,17 @@ Live Preview at https://neanadelrio.github.io/lets-shop-api-capstone/
 # Store-Search-Weather-API-Capstone
 Thinkful (https://www.thinkful.com) First Capstone Project - App integrating with Google and Openweather API
 
-![landing page](ScreenShots/Screen%20Shot%202018-03-12%20at%209.32.36%20PM.png)
-![landing page small screen](ScreenShots/Screen%20Shot%20Landing%20Page%20sm%202018-03-18%20at%204.25.02%20PM.png)
+<img src="ScreenShots/Screen%20Shot%202018-03-12%20at%209.32.36%20PM.png" height="250">
 
+<img src="ScreenShots/Screen%20Shot%20Landing%20Page%20sm%202018-03-18%20at%204.25.02%20PM.png" width="250">
 
+<img src="ScreenShots/Screen%20Shot%20next%20page%20fs%202018-03-18%20at%204.25.31%20PM.png" height="250">
+
+<img src="ScreenShots/Screen%20Shot%20next%20page%20sm%202018-03-18%20at%204.26.03%20PM.png" width="250">
+
+<img src="ScreenShots/Screen%20Shot%20results%20fs%202018-03-18%20at%204.25.46%20PM.png" height="250">
+
+<img src="ScreenShots/Screen%20Shot%20results%20sm%202018-03-18%20at%204.26.17%20PM.png" width="250">
 
 
 ## Background
