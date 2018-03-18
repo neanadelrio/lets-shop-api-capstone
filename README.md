@@ -7,6 +7,7 @@ Live Preview at https://neanadelrio.github.io/lets-shop-api-capstone/
 Thinkful (https://www.thinkful.com) First Capstone Project - App integrating with Google and Openweather API
 
 ![landing page](ScreenShots/Screen%20Shot%202018-03-12%20at%209.32.36%20PM.png)
+![landing page small screen](ScreenShots/Screen%20Shot%20Landing%20Page%20sm%202018-03-18%20at%204.25.02%20PM.png)
 
 
 
