@@ -23,7 +23,7 @@ Thinkful (https://www.thinkful.com) First Capstone Project - App integrating wit
 I, like almost every fashion enthusiast hunts for the perfect store.  The stakes are even higher when in a new area and you’re not sure what stores are nearby.  I thought to create an app that retrieves not only the current weather for your excursion but most importantly nearby stores for your potential new coveted fashion piece.  
 
 ## Use Case
-This app includes a location search input. A person can provide the current State or thier potential location to retrive current weather data along with the name and location of nearby stores from Foursquare.
+This app includes a location search input. A person can provide the current City to retrive current weather data along with the name and location of nearby stores from Foursquare.
 
 ## Working Prototype
 You can access a working prototype of the app here: https://neanadelrio.github.io/lets-shop-api-capstone/
@@ -51,3 +51,6 @@ App is built to be responsive across mobile, tablet, laptop, and desktop screen 
 
 ## Development Roadmap
 This is v1.0 of the app, but future enhancements are expected to include:
+1) Search by zipcode as well
+2) Restaurant suggestions 
+3) Events nearby 
